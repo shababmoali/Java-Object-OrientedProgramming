@@ -29,6 +29,8 @@ public class VigenereCipher {
 	}
 	
 	
+	
+	// private String intArrayToString(int[] encodedText) - 
 	// Converts an array of integers with values in the range 0...25 
 	// into a string with characters in the range a...z.
 	private String intArrayToString(int[] encodedText) {
@@ -40,9 +42,11 @@ public class VigenereCipher {
 		}
 		return result;
 	
-	}
+	} //end intArrayToString(int[] encodedText)
 	
 	
+	
+	// private int[] stringToIntArray(String text) - 
 	// Converts a string into an int array where the values are within the range 0...25.
 	private int[] stringToIntArray(String text) {
 		
@@ -53,10 +57,11 @@ public class VigenereCipher {
         }
 		return result;
 	
-	}
+	} //end stringToIntArray(String text)
 	
 	
-	// dumpArray(int[] array, String text) - Prints out the specified text, 
+	
+	// private void dumpArray(int[] array, String text) - Prints out the specified text, 
 	// followed immediately by the (comma-delimited) contents of the array.
 	private void dumpArray(int[] array, String text) {
 		
@@ -70,6 +75,7 @@ public class VigenereCipher {
 		}
 
 	} //end dumpArray(int[] array, String text)  
+	
 	
 	
 	// main(String[] args) used for internal testing purposes only.
@@ -88,7 +94,7 @@ public class VigenereCipher {
 		
 		
 		// Test private int[] stringToIntArray(String textdcn):
-		System.out.println("Test private int[] stringToIntArray(String textdcn):");
+		System.out.println("Test private int[] stringToIntArray(String text):");
 		String sTIA = "";
 		for(char i='a'; i<='z'; i++) {
 			sTIA += i;
@@ -117,7 +123,7 @@ public class VigenereCipher {
 		}
 		vc.dumpArray(t, s);
 		
-	} // end main(String[] args)
+	} //end main(String[] args)
 	
 	
-} // end class VigenereCipher
+} //end class VigenereCipher
