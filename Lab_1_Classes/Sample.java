@@ -1,6 +1,5 @@
 /*
 * Name: <Shabab Ali>
-* ID: <V00651717>
 * Date: <Jan 9 2018>
 * Filename: <Sample.java>
 * Details: <CSC115\Lab1\Sample.java>: A Java program (verified compiler - JDK8u131) 
