@@ -1,6 +1,20 @@
-//import java.util.Arrays;
+/*
+* Name: <Shabab Ali>
+* Date: <Jan 22 2018>
+* Filename: <VigenereCipher.java>
+* Details: <CSC115\Lab2\Numbers.java>: A Java program (verified compiler - JDK8u131) 
+    that meets the criteria for developing a custom VigenereCipher class which implements Cipher.
+	The Cipher uses a key parameter to encrypt and decrypt Strings of lower case characters (without any spaces).
+	Learning outcomes: • How to create a one-dimensional (i.e., 1D) array.
+					   • How to read from and write to array elements, using both explicit and computed index values.
+					   • Identify coding involving simple file input and output using streams in Java.
+					   • Identify the use of exceptions in Java.
+*/
 
-public class VigenereCipher {
+
+import java.util.Arrays;
+
+public class VigenereCipher implements Cipher {
   
   String key;
   int[] intCipherKey;
@@ -30,7 +44,8 @@ public class VigenereCipher {
 		int[] encryptedIntOutput = new int[intTextInput.length];
 		
 		for (int i=0; i<encryptedIntOutput.length; i++) {
-			encryptedIntOutput[i] = ( intTextInput[i] + (this.intCipherKey[i%this.intCipherKey.length]) ) % 26;		
+			//[i%this.intCipherKey.length] is necessary to account for unmatched key lengths
+			encryptedIntOutput[i] = ( intTextInput[i] + (this.intCipherKey[i%this.intCipherKey.length]) ) % 26; 		
 		}
 		
 		String result = intArrayToString(encryptedIntOutput);
@@ -95,8 +110,8 @@ public class VigenereCipher {
 	// followed immediately by the (comma-delimited) contents of the array.
 	private void dumpArray(int[] array, String text) {
 		
-		String s = text;
-		System.out.println(s);
+		//String s = text;
+		System.out.println(text);
 		for (int i=0; i<array.length; i++) {
 			System.out.print(i);
 			if (i != array.length-1) {
