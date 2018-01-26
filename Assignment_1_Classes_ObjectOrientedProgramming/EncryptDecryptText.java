@@ -1,3 +1,17 @@
+/*
+* Name: <Shabab Ali>
+* Date: <Jan 22 2018>
+* Filename: <VigenereCipher.java>
+* Details: <CSC115\Lab2\Numbers.java>: A Java program (verified compiler - JDK8u131) 
+    that meets the criteria for developing a custom VigenereCipher class which implements Cipher.
+	The Cipher uses a key parameter to encrypt and decrypt Strings of lower case characters (without any spaces).
+	Learning outcomes: • How to create a one-dimensional (i.e., 1D) array.
+					   • How to read from and write to array elements, using both explicit and computed index values.
+					   • Identify coding involving simple file input and output using streams in Java.
+					   • Identify the use of exceptions in Java.
+*/
+
+
 import java.util.*;
 import java.io.*;
 
@@ -55,7 +69,7 @@ public class EncryptDecryptText {
             // AND ONLY THE RIGHT-HAND SIDE AT THAT (TO THE RIGHT
             // OF THE = SIGN). SORRY FOR SHOUTING.
             //
-            Cipher c = new NullCipher(key);
+            Cipher c = new VigenereCipher(key);
 
             infileScanner = new Scanner(new File(infileName));
             outfileStream = new PrintStream(new File(outfileName));
