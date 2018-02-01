@@ -12,7 +12,7 @@
 */
 
 
-import java.util.Arrays;
+//import java.util.Arrays;
 
 public class VigenereCipher implements Cipher {
   
@@ -64,6 +64,7 @@ public class VigenereCipher implements Cipher {
 		int[] decryptedIntOutput = new int[intCipherText.length];
 		
 		for (int i=0; i<decryptedIntOutput.length; i++) {
+			//[i%this.intCipherKey.length] is necessary to account for unmatched key lengths
 			decryptedIntOutput[i] = ( 26 + intCipherText[i] - (this.intCipherKey[i%this.intCipherKey.length]) ) % 26;		
 		}
 		
@@ -110,8 +111,7 @@ public class VigenereCipher implements Cipher {
 	// followed immediately by the (comma-delimited) contents of the array.
 	private void dumpArray(int[] array, String text) {
 		
-		//String s = text;
-		System.out.println(text);
+		System.out.print(text);
 		for (int i=0; i<array.length; i++) {
 			System.out.print(i);
 			if (i != array.length-1) {
@@ -125,10 +125,9 @@ public class VigenereCipher implements Cipher {
 	
 	
 	// main(String[] args) used for internal testing purposes only.
-	// UNDO BLOCK COMMENTS and *import java.util.Arrays TO IMPLEMENT!
-
+	// UNDO BLOCK COMMENTS and //import java.util.Arrays TO IMPLEMENT!
 	public static void main(String[] args) {
-/*	
+/*
 		// Test constructor
 		VigenereCipher vc = new VigenereCipher("obo");
 		System.out.println("\nConstruct VigenereCipher object with key:");
@@ -179,7 +178,7 @@ public class VigenereCipher implements Cipher {
 		System.out.println("Decrypt:");
 		String decryptTest = vc.decrypt(vc.encrypt(encryptTest));
 		System.out.println(decryptTest);
-*/		
+*/	
 	} //end main(String[] args)
 
 	

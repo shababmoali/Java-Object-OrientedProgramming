@@ -1,7 +1,7 @@
 /*
 * Name: <Shabab Ali>
 * Date: <Jan 22 2018>
-* Filename: <VigenereCipher.java>
+* Filename: <EncryptDecryptText.java>
 * Details: <CSC115\Lab2\Numbers.java>: A Java program (verified compiler - JDK8u131) 
     that meets the criteria for developing a custom VigenereCipher class which implements Cipher.
 	The Cipher uses a key parameter to encrypt and decrypt Strings of lower case characters (without any spaces).
