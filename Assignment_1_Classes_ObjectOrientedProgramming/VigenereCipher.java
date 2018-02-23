@@ -2,7 +2,7 @@
 * Name: <Shabab Ali>
 * Date: <Jan 22 2018>
 * Filename: <VigenereCipher.java>
-* Details: <CSC115\Lab2\Numbers.java>: A Java program (verified compiler - JDK8u131) 
+* Details: <CSC115\Assn1\VigenereCipher.java>: A Java program (verified compiler - JDK8u131) 
     that meets the criteria for developing a custom VigenereCipher class which implements Cipher.
 	The Cipher uses a key parameter to encrypt and decrypt Strings of lower case characters (without any spaces).
 	Learning outcomes: • How to create a one-dimensional (i.e., 1D) array.
@@ -15,6 +15,7 @@
 //import java.util.Arrays;
 
 public class VigenereCipher implements Cipher {
+  
   
   String key;
   int[] intCipherKey;
@@ -113,12 +114,11 @@ public class VigenereCipher implements Cipher {
 		
 		System.out.print(text);
 		for (int i=0; i<array.length; i++) {
-			System.out.print(i);
+			System.out.print(array[i]);
 			if (i != array.length-1) {
 				System.out.print(",");
 			} 
 		}
-		System.out.println();
 		
 	} //end dumpArray(int[] array, String text)  
 	
@@ -127,7 +127,7 @@ public class VigenereCipher implements Cipher {
 	// main(String[] args) used for internal testing purposes only.
 	// UNDO BLOCK COMMENTS and //import java.util.Arrays TO IMPLEMENT!
 	public static void main(String[] args) {
-/*
+
 		// Test constructor
 		VigenereCipher vc = new VigenereCipher("obo");
 		System.out.println("\nConstruct VigenereCipher object with key:");
@@ -178,7 +178,7 @@ public class VigenereCipher implements Cipher {
 		System.out.println("Decrypt:");
 		String decryptTest = vc.decrypt(vc.encrypt(encryptTest));
 		System.out.println(decryptTest);
-*/	
+	
 	} //end main(String[] args)
 
 	
