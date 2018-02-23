@@ -1,0 +1,71 @@
+// Pseudocode Initialize postfix expression to null string:
+
+for (each charcater in the infix expression) {
+
+	switch(ch) {
+		case ch is an operand:
+			Append ch to the end of postfixExp
+			break
+		case ch is an operator:
+			Store ch until you know where to place it
+			break
+		case ch is '(' or ')':
+			Discard ch
+			break
+			// end switch
+		case ch is none of the above:
+			Discard ch
+			break
+	}
+
+}
+
+// Pseudocode convert postfix expression to infix expression:
+
+for (each character ch in the infix exppression) {
+
+	switch (ch) {
+		
+		case operand: //append operand to end of postfixExp
+		postfixExp = postfixExp + ch
+		break
+		
+		case '(': //save '(' on stack
+		aStack.push(ch)
+		break
+		
+		case ')': // pop stack until matching '('
+			while (top of stack is not '(') {
+				postfixExp = postfixExp + aStack.pop()
+			} // end while
+			openParen = aStack.pop() // remove the open parenthesis
+			break
+			
+		case operator: // process the stack operators of greater precedence
+		
+			while(!aStack.isEmpty() and top of stack is not '('
+					and precedence(ch) <= precedence(top of stack) ) {
+						postfixExp = postfixExp + aStack.pop()
+					} // end while
+					
+					aStack.push(ch) // save new operator
+					break
+		
+		
+	
+	} // end switch
+} // end for
+
+
+// append to postfixExp the operators remaining in the stack
+while (!aStack.isEmpty()) {
+	
+	postfixExp = postfixExp + aStack/pop()
+
+} // end while 
+
+
+
+
+
+}
