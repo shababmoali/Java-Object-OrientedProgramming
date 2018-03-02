@@ -170,7 +170,26 @@ public class GameBoard {
      * returned.
      */
     public String isWord(String word) {
-        return null;
+		
+		Stack<String> path = new Stack<String>();
+		
+		//test:
+		word = word.toUpperCase();
+		
+		for (int i=0; i<NUM_ROWS; i++) {		
+			for (int j=0; j<NUM_COLS; j++) {
+				//debug:
+				System.out.println( "(" + i + "," + j + ")" );
+			
+				if ( findPath(word, path, i, j) ) {
+					return path.toString();
+				}
+			
+			}
+		}
+		
+		return null;
+		
     }
 
 
@@ -205,8 +224,123 @@ public class GameBoard {
                              Stack<String> pathSoFar,
                              int row, int col)
     {
+		
+		// Recursive algorithm to trace sequence once cursor
+		// is set at a particular letter in the query word. 
+		//  The starting letter is set by iteration through the gameboard
+		//  board[i][j] in method isWord()
+		
+			//debug:
+			try {
+				System.out.println("STRING: " + wordToFind + ", " + "LETTER: " + wordToFind.charAt(0));
+			} catch(StringIndexOutOfBoundsException exception) {
+	
+			}
+
+		
+		// IMPORTANT!!!
+		// BASE CASE 4: If all chars in the query word string are found,
+		// 				the final recursive wordToFind argument should be the empty string "",
+		// 				implying all the chars have been legally sequenced.
+		if ( wordToFind.equals("")) {
+			//debug:
+			System.out.println("TRUE: " + "(" + row + "," + col + ")" );
+			return true;
+		} 
+		// BASE CASE 1: Moving out of bounds in the board[][] when checking neighbouring 
+		//				positions for the next char in the query word string:
+		if ( row < 0 || row > NUM_ROWS-1 || col < 0 || col > NUM_COLS-1 ) {
+			//debug:
+			System.out.println("OUTOFBOUNDS: " + "(" + row + "," + col + ")" );
+			return false;
+		}
+		// BASE CASE 3: Letter position on board has already been visited.
+		//				Boolean 2D array visited[][] keeps track of visited positions:
+		if ( visited[row][col] ) {
+			//debug:
+			System.out.println("ALREADY VISITED: " + "(" + row + "," + col + ")" );
+			return false;
+		} 
+		// BASE CASE 2: Starting letter does not match first letter
+		// 				in query word string:
+		if ( wordToFind.charAt(0) != board[row][col] ) {
+			//debug:
+			System.out.println("LETTER INCORRECT: " + "(" + row + "," + col + ")" );
+			System.out.println("BOARD LETTER: " + board[row][col] );
+			return false;
+		}
+
+
+		// RECURSIVE CASE: 
+		// Mark the current position as visited, 
+		// and add the position to the stack which records the path
+		visited[row][col] = true;
+		pathSoFar.push( "(" + row + "," + col + ")" );
+		boolean goodSelection = true;
+		while( goodSelection ) {
+			int[] diff = {-1,0,1};
+			for (int i=row-1; i<=row+1; i++) {
+				for (int j=col-1; j<=col+1; j++) {
+
+					findPath(wordToFind.substring(1), 
+                             pathSoFar,
+                             i, j);
+
+				}
+			}
+			goodSelection = false;
+		}
+		// If the trace is unsuccesful, the initial position is not valid
+		// reset current position as not visited, and 
+		// remove the position from the stack which records the path
+		pathSoFar.pop();
+		visited[row][col] = false;
+		
+		return false;
+
+		/*
+		
+		else if {
+			
+			
+		
+			return findPath(String wordToFind, 
+                             Stack<String> pathSoFar,
+                             int row, int col);
+		} 
+		
+		// checking for row and column
+		if ( (board[row + 1][col]).equals(wordToFind.charAt(0) ) {
+			
+		}
+		
+	
+		//checking for diagonals
+		// if any cell (i, j) having p+q = x+y is 1          
+			return true
+		// if any cell (p, q) having p-q = x-y is 1
+			return true
+		
+		
+		
         return false;
-    }
+		
+		*/
+
+
+	
+	// helper method to determine if the next char in word sequence
+	// is available
+
+		
+		//checking for row and column
+		
+		
+		//checking for diagonals 
+
+	
+	// helper method to determine the inbounds options for coninuing path
+	}
 
 
     /**
@@ -215,12 +349,13 @@ public class GameBoard {
      * tests written by the student as they develop their
      * solution.
      */
-    static public void main(String[] args) {
+    public static void main(String[] args) {
         String testBoard[] = {"wurg", "hsor", "heei", "isen"};
         GameBoard test01 = new GameBoard(testBoard);
         System.out.println(test01);
 
         GameBoard test02 = new GameBoard(300);
         System.out.println(test02);
+		System.out.println(test02.isWord("hi"));
     }
 }
