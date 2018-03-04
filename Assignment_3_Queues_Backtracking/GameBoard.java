@@ -176,13 +176,19 @@ public class GameBoard {
 		//test:
 		word = word.toUpperCase();
 		
-		for (int i=0; i<NUM_ROWS; i++) {		
-			for (int j=0; j<NUM_COLS; j++) {
+		for (int row=0; row<NUM_ROWS; row++) {		
+			for (int col=0; col<NUM_COLS; col++) {
 				//debug:
-				System.out.println( "(" + i + "," + j + ")" );
+				System.out.println( "(" + row + "," + col + ")" );
 			
-				if ( findPath(word, path, i, j) ) {
-					return path.toString();
+				if ( word.charAt(0) == board[row][col] ) {
+					
+					if ( findPath(word, path, row, col) ) {
+						this.visited = new boolean[NUM_ROWS][NUM_COLS];
+						return path.toString();
+					}
+					
+					
 				}
 			
 			}
@@ -237,7 +243,7 @@ public class GameBoard {
 	
 			}
 
-		
+
 		// IMPORTANT!!!
 		// BASE CASE 4: If all chars in the query word string are found,
 		// 				the final recursive wordToFind argument should be the empty string "",
@@ -269,35 +275,39 @@ public class GameBoard {
 			System.out.println("BOARD LETTER: " + board[row][col] );
 			return false;
 		}
-
-
 		// RECURSIVE CASE: 
+		// In this case, the current position matches the next char in the query word string.
 		// Mark the current position as visited, 
-		// and add the position to the stack which records the path
-		visited[row][col] = true;
-		pathSoFar.push( "(" + row + "," + col + ")" );
-		boolean goodSelection = true;
-		while( goodSelection ) {
-			int[] diff = {-1,0,1};
-			for (int i=row-1; i<=row+1; i++) {
-				for (int j=col-1; j<=col+1; j++) {
-
-					findPath(wordToFind.substring(1), 
-                             pathSoFar,
-                             i, j);
-
+		// and add the position to the stack which records the path.
+		// Check surrounding positions for the next char by recursive fucntion call. 
+		else {	
+			visited[row][col] = true;
+			pathSoFar.push( "(" + row + "," + col + ")" );
+			// !!!!! this iteration section around the squares is not setup porperly!
+				int[] diff = {-1,0,1};
+				
+				for (int i=row-1; i<=row+1; i++) {
+					for (int j=col-1; j<=col+1; j++) {
+						
+						if ( findPath(wordToFind.substring(1), pathSoFar, i, j) ) {
+							return true;
+						}
+					
+					}
 				}
-			}
-			goodSelection = false;
-		}
-		// If the trace is unsuccesful, the initial position is not valid
-		// reset current position as not visited, and 
-		// remove the position from the stack which records the path
-		pathSoFar.pop();
-		visited[row][col] = false;
-		
-		return false;
 
+			
+			
+			// If the trace is unsuccesful, the initial position is not valid
+			// reset current position as not visited, and 
+			// remove the position from the stack which records the path
+			pathSoFar.pop();
+			visited[row][col] = false;
+			return false;
+
+		}
+		
+		
 		/*
 		
 		else if {
@@ -356,6 +366,6 @@ public class GameBoard {
 
         GameBoard test02 = new GameBoard(300);
         System.out.println(test02);
-		System.out.println(test02.isWord("hi"));
+		System.out.println(test02.isWord("sale"));
     }
 }
