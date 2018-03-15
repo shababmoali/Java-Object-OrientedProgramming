@@ -1,3 +1,19 @@
+/*
+* Name: <Shabab Ali>
+* ID: <V00651717>
+* Date: <Mar 04 2018>
+* Filename: <GameBoard.java>
+* Details: <CSC115\Assn3\GameBoard.java>: A Java program (verified compiler - JDK8u131) 
+			that meets the criteria for developing a recursive backtracking algorithm.
+*/
+
+
+// Implementing the backtracking recursion was only made possible through
+// an outline/concept map provided by Dr. Bette Bultena.
+
+// NOTE: To observe the control flow of the 'Backtracking Algorithm'.
+// Undo COMMENTED OUT LINES BELOW: //View Control Flow/debug: in isWord() and findPath() functions.
+
 /**
  * GameBoard.java 
  * @author Mike Zastre
@@ -171,32 +187,39 @@ public class GameBoard {
      */
     public String isWord(String word) {
 		
+		// Create a String Stack object from the Java Collections Framework
 		Stack<String> path = new Stack<String>();
 		
-		//test:
+		// handle lowerCase and empty string queries:
 		word = word.toUpperCase();
-		
+		if ( word.equals("")) {
+			return null;
+		} 
+		// iterate through the GameBoard and find a succesful sequence that matches 
+		// the query String by calling findPath function when the first letter is found.
+		// findPath recursively calls itself to determine whether a succesful sequence of letters
+		// is traced from the isWord iterated intial position
 		for (int row=0; row<NUM_ROWS; row++) {		
 			for (int col=0; col<NUM_COLS; col++) {
-				//debug:
-				System.out.println( "(" + row + "," + col + ")" );
+				//View Control Flow/debug:
+				//System.out.println( "\nisWord Iteration: " + "(" + row + "," + col + ")" );
 			
 				if ( word.charAt(0) == board[row][col] ) {
 					
 					if ( findPath(word, path, row, col) ) {
+						// visited[][] needs to be reset for future GameBoard use
 						this.visited = new boolean[NUM_ROWS][NUM_COLS];
 						return path.toString();
 					}
 					
-					
-				}
+				}//end findPath recursion at board[row][col] position
 			
-			}
-		}
+			}//end columns iteration
+		}//end rows iteration
 		
 		return null;
 		
-    }
+    } //end isWord()
 
 
     /**
@@ -228,51 +251,49 @@ public class GameBoard {
      */
     private boolean findPath(String wordToFind, 
                              Stack<String> pathSoFar,
-                             int row, int col)
-    {
+                             int row, int col) {
+		
 		
 		// Recursive algorithm to trace sequence once cursor
 		// is set at a particular letter in the query word. 
 		//  The starting letter is set by iteration through the gameboard
 		//  board[i][j] in method isWord()
 		
-			//debug:
-			try {
-				System.out.println("STRING: " + wordToFind + ", " + "LETTER: " + wordToFind.charAt(0));
-			} catch(StringIndexOutOfBoundsException exception) {
-	
-			}
+		//View Control Flow/debug:
+		//try {
+		//	System.out.println("\nfindPath call: " + "STRING: " + wordToFind + ", " + "LETTER: " + wordToFind.charAt(0));
+		//} catch(StringIndexOutOfBoundsException exception) {}
 
 
 		// IMPORTANT!!!
-		// BASE CASE 4: If all chars in the query word string are found,
+		// BASE CASE 1: If all chars in the query word string are found,
 		// 				the final recursive wordToFind argument should be the empty string "",
 		// 				implying all the chars have been legally sequenced.
 		if ( wordToFind.equals("")) {
-			//debug:
-			System.out.println("TRUE: " + "(" + row + "," + col + ")" );
+		//View Control Flow/debug:
+		//System.out.println("TRUE: " + "(" + row + "," + col + ")" );
 			return true;
 		} 
-		// BASE CASE 1: Moving out of bounds in the board[][] when checking neighbouring 
+		// BASE CASE 2: Moving out of bounds in the board[][] when checking neighbouring 
 		//				positions for the next char in the query word string:
 		if ( row < 0 || row > NUM_ROWS-1 || col < 0 || col > NUM_COLS-1 ) {
-			//debug:
-			System.out.println("OUTOFBOUNDS: " + "(" + row + "," + col + ")" );
+		//View Control Flow/debug:
+		//System.out.println("OUTOFBOUNDS: " + "(" + row + "," + col + ")" );
 			return false;
 		}
 		// BASE CASE 3: Letter position on board has already been visited.
 		//				Boolean 2D array visited[][] keeps track of visited positions:
 		if ( visited[row][col] ) {
-			//debug:
-			System.out.println("ALREADY VISITED: " + "(" + row + "," + col + ")" );
+		//View Control Flow/debug:
+		//System.out.println("ALREADY VISITED: " + "(" + row + "," + col + ")" );
 			return false;
 		} 
-		// BASE CASE 2: Starting letter does not match first letter
+		// BASE CASE 4: Board letter does not match first letter
 		// 				in query word string:
 		if ( wordToFind.charAt(0) != board[row][col] ) {
-			//debug:
-			System.out.println("LETTER INCORRECT: " + "(" + row + "," + col + ")" );
-			System.out.println("BOARD LETTER: " + board[row][col] );
+		//View Control Flow/debug:
+		//System.out.println("LETTER INCORRECT: " + "(" + row + "," + col + ")" );
+		//System.out.println("BOARD LETTER: " + board[row][col] );
 			return false;
 		}
 		// RECURSIVE CASE: 
@@ -281,11 +302,10 @@ public class GameBoard {
 		// and add the position to the stack which records the path.
 		// Check surrounding positions for the next char by recursive fucntion call. 
 		else {	
+		
 			visited[row][col] = true;
 			pathSoFar.push( "(" + row + "," + col + ")" );
-			// !!!!! this iteration section around the squares is not setup porperly!
-				int[] diff = {-1,0,1};
-				
+						
 				for (int i=row-1; i<=row+1; i++) {
 					for (int j=col-1; j<=col+1; j++) {
 						
@@ -293,13 +313,11 @@ public class GameBoard {
 							return true;
 						}
 					
-					}
-				}
+					}//end columns iteration
+				}//end rows iteration
 
-			
-			
-			// If the trace is unsuccesful, the initial position is not valid
-			// reset current position as not visited, and 
+			// If the trace was unsuccesful, the isWord() initial position is not valid
+			// reset the initial trace position as not visited, and 
 			// remove the position from the stack which records the path
 			pathSoFar.pop();
 			visited[row][col] = false;
@@ -308,49 +326,7 @@ public class GameBoard {
 		}
 		
 		
-		/*
-		
-		else if {
-			
-			
-		
-			return findPath(String wordToFind, 
-                             Stack<String> pathSoFar,
-                             int row, int col);
-		} 
-		
-		// checking for row and column
-		if ( (board[row + 1][col]).equals(wordToFind.charAt(0) ) {
-			
-		}
-		
-	
-		//checking for diagonals
-		// if any cell (i, j) having p+q = x+y is 1          
-			return true
-		// if any cell (p, q) having p-q = x-y is 1
-			return true
-		
-		
-		
-        return false;
-		
-		*/
-
-
-	
-	// helper method to determine if the next char in word sequence
-	// is available
-
-		
-		//checking for row and column
-		
-		
-		//checking for diagonals 
-
-	
-	// helper method to determine the inbounds options for coninuing path
-	}
+	} //end findPath()
 
 
     /**
@@ -360,12 +336,22 @@ public class GameBoard {
      * solution.
      */
     public static void main(String[] args) {
+		
         String testBoard[] = {"wurg", "hsor", "heei", "isen"};
         GameBoard test01 = new GameBoard(testBoard);
         System.out.println(test01);
 
         GameBoard test02 = new GameBoard(300);
         System.out.println(test02);
-		System.out.println(test02.isWord("sale"));
-    }
-}
+		
+		//Test isWord() and findPath() with different length String parameters:
+		System.out.println("\"\" Empty String: " + test02.isWord(""));
+		System.out.println("\"a\": " + test02.isWord("a"));
+		System.out.println("\"Hi\": " + test02.isWord("Hi"));
+		System.out.println("\"sAle\": " + test02.isWord("sAle"));
+		System.out.println("\"1\": " + test02.isWord("1"));
+    
+	} //end void main(String[] args)
+	
+	
+} //end class GameBoard
