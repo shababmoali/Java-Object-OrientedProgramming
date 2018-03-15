@@ -248,7 +248,7 @@ public class PostfixTokenizer implements Tokenizer {
 	// during development of the StringStack class. 
 	// UNDO BLOCK comments to implement ...
 	public static void main(String[] args) {
-/*
+
 
 		String test1 = "3*(4+2)-4*(-6--3)";
 		String test2 = "x^y/(5*z)+10";
@@ -346,7 +346,7 @@ public class PostfixTokenizer implements Tokenizer {
 			System.out.println("next token: " + postfix.next());
 		}
 
-*/
+
 	} //end main(String[] args)
 
 
