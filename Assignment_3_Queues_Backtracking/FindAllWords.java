@@ -1,3 +1,14 @@
+/*
+* Name: <Shabab Ali>
+* ID: <V00651717>
+* Date: <Mar 04 2018>
+* Filename: <FindAllWords.java>
+* Details: <CSC115\Assn3\FindAllWords.java>: A Java program (verified compiler - JDK8u131) 
+			that meets the criteria for developing an iterator that reads words from a custom .txt file
+			and utilizes a recursive backtracking algorithm to determine whether they exist on the GameBoard object.
+*/
+
+
 /**
  * FindAllWords.java
  * @author Mike Zastre
@@ -17,7 +28,10 @@ import java.io.*;
  * the word can be found in the GameBoard instance created.
  */
 public class FindAllWords {
+
+
     public static void main(String args[]) {
+
         if (args.length < 2) {
             System.err.println(
                 "usage: java ValidateWord <seed> <filename>"
@@ -40,6 +54,23 @@ public class FindAllWords {
              *
              * Note: The name of the file is in argv[1].
              */
+			
+			// Create File object and Scanner object to iterate through the file's Strings.
+			// Determine if the Strings exist on the GameBoard object as part of the Scanner iteration,
+			// by calling isWord() class method.
+			File inF = new File(args[1]);
+			Scanner inputF = new Scanner(inF);
+			
+			while (inputF.hasNext()) {
+				String query = inputF.next();
+				String result = gb.isWord(query);
+				// Print succesful results to console
+				if ( result != null ) {
+					System.out.println(query + ": " + result);
+				}
+				
+			} //end Scanner iteration
+			 
         }
         catch (NumberFormatException nfe) {
             System.err.println(
@@ -48,5 +79,11 @@ public class FindAllWords {
             );
             System.exit(1);
         }
-    }
-}
+		catch (FileNotFoundException exception) {
+			System.out.println("The file was not found.");
+		}
+
+    } //end void main(String args[])
+
+
+} //end class FindAllWords
