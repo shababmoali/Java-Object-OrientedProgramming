@@ -60,7 +60,7 @@ class TreeNode {
 	 */
 	TreeNode() {}
 
-/*
+
 	// for testing purposes only
 	public String toString() {
 		StringBuilder sb = new StringBuilder("TreeNode: item = "+item);
@@ -75,6 +75,6 @@ class TreeNode {
 		}
 		return sb.toString();
 	}
-*/
+
 		
 }
