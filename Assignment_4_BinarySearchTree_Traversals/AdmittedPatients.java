@@ -1,9 +1,18 @@
 
+/*
+* Name: <Shabab Ali>
+* Date: <Mar 25 2018>
+* Filename: <AdmittedPatients.java>
+* Details: <CSC115\Assn4\AdmittedPatients.java>: A Java program (verified compiler - JDK8u131) 
+			that meets the criteria for developing a hosptal patient database. The database and methods are
+			based on the binary search tree 
+*/
+
 
 public class AdmittedPatients {
 
   TreeNode root;
-  int numPatients;
+  int numPatients; //not used for this assignment but a useful field otherwise 
   
   
   //CONSTRUCTORS:
@@ -42,7 +51,8 @@ public class AdmittedPatients {
 	//CLASS METHODS:
 	
 	
-	// admit() - Enters the record of an admitted patient into the current 
+	// admit() :
+	// Enters the record of an admitted patient into the current 
 	// BinarySearchTree data structure (AdmittedPatients object), maintaining the ordering of the tree. 
 	// Previous records in the tree are not moved from their position. 
 	// The ordering is determined by the compareTo() method of the HospitalPatient class.
@@ -52,12 +62,15 @@ public class AdmittedPatients {
 		this.root = insertItem(this.root, patient);
 		this.numPatients++;
 		
-	}
+	} //end admit()
 	
+	
+	// helper method insertItem(TreeNode tNode, HospitalPatient patient),
+	// that recursively traverses a binary search tree and returns a TreeNode pointer
 	private TreeNode insertItem(TreeNode tNode, HospitalPatient patient) {
 		
 		// BASE CASE: 
-		// A null position is found for a new Tree/subTree in the binary search tree.
+		// A null position is found for inserting a new Tree/subTree TreeNode in the binary search tree.
 		// Note - A binary tree at every tree node is essentially a tree of subtrees...
 		if ( tNode == null ) {
 			// position of insertion found; create a new node
@@ -84,7 +97,8 @@ public class AdmittedPatients {
 
 
 
-	// getPatientInfo() - Retrieves the information about a patient, given an id number. 
+	// getPatientInfo() :
+	// Retrieves the information about a patient, given an id number. 
 	// The patient's record remains in its current location in the tree.
 	// Parameters: id - The id of the patient.
 	// Returns: The complete record of that patient or null if the patient is not in hospital.
@@ -94,6 +108,10 @@ public class AdmittedPatients {
 		
 	} //end HospitalPatient getPatientInfo()
 
+	
+	// helper method retrieveItem(TreeNode tNode, String id),
+	// that recursively traverses a binary search tree and returns a 
+	// TreeNode data field item (HospitalPatient object)
 	private HospitalPatient retrieveItem(TreeNode tNode, String id) {
 
 		// BASE CASE: 
@@ -128,8 +146,9 @@ public class AdmittedPatients {
 	} //end HospitalPatient retrieveItem()
 
 
-	
-	// discharge() - Removes a patient's record from the BinarySearchTree. 
+
+	// discharge() :
+	// Removes a patient's record from the BinarySearchTree. 
 	// If the record is not there, nothing changes. 
 	// If the record is in a node with no children, 
 	//  then that node is removed from the tree. 
@@ -143,8 +162,12 @@ public class AdmittedPatients {
 		
 		this.root = deleteItem(this.root, patient);
 	
-	}
-	
+	} //end discharge()
+
+
+	// helper method deleteItem(TreeNode tNode, HospitalPatient patient),
+	// that recursively traverses a binary search tree and returns a 
+	// TreeNode data field item (HospitalPatient object)
 	private TreeNode deleteItem(TreeNode tNode, HospitalPatient patient) {
 		
 		// BASE CASE:
@@ -181,8 +204,12 @@ public class AdmittedPatients {
 			
 		return tNode;
 		
-	}
+	} //end TreeNode deleteItem()
 	
+	
+	// helper method HospitalPatient minRightSuccessor(TreeNode tNode),
+	// that returns the leftmost TreeNode leaf's item (HospitalPatient object)
+	// referenced by subTree origin TreeNode argument  
 	private HospitalPatient minRightSuccessor(TreeNode tNode) {
 		
 		HospitalPatient minVal = tNode.item;
@@ -192,8 +219,7 @@ public class AdmittedPatients {
 		}
 		return minVal;
 		
-	} 
-	
+	} //end HospitalPatient minRightSuccessor()
 
 
 
@@ -204,8 +230,11 @@ public class AdmittedPatients {
 		
 		printInorder(this.root);
 		
-	}
+	} //end printLocations()
 	
+	
+	// helper method printInorder(TreeNode tNode),
+	// that performs an Inorder traversal of the AdmittedPatients binary search tree
 	private void printInorder(TreeNode tNode) {
 		
 		// BASE CASE: 
@@ -224,11 +253,11 @@ public class AdmittedPatients {
         /* now recur on right child */
         printInorder(tNode.right);
 		
-	}
+	} //end printInorder(TreeNode tNode)
   
   
   
-	
+	// main() used for testing purposes only.
 	public static void main(String[] args) {
 		
 		// construct AdmittedPatients object:
@@ -237,11 +266,16 @@ public class AdmittedPatients {
 		HospitalPatient p1 = new HospitalPatient(new SimpleDate(2018,2,27),"Duck","Donald",'C',123);
 		HospitalPatient p2 = new HospitalPatient(new SimpleDate(2018,1,15),"Mouse","Minnie",'B',307);
 		HospitalPatient p3 = new HospitalPatient(new SimpleDate(2018,3,1),"Dog","Goofie",'A',422);
-		HospitalPatient p4 = new HospitalPatient(new SimpleDate(2017,12,25),"Newman","Alfred",'X',111);
-		HospitalPatient p5 = new HospitalPatient(new SimpleDate(2017,12,25),"Zu","Andy",'X',111);
-		HospitalPatient p6 = new HospitalPatient(new SimpleDate(2017,12,25),"Nole","Chuck",'X',111);
-		HospitalPatient p7 = new HospitalPatient(new SimpleDate(2017,12,25),"Denver","Joe",'X',111);
+		HospitalPatient p4 = new HospitalPatient(new SimpleDate(2017,12,25),"Newman","Alfred",'X',116);
+		HospitalPatient p5 = new HospitalPatient(new SimpleDate(2017,10,23),"Zu","Andy",'X',111);
+		HospitalPatient p6 = new HospitalPatient(new SimpleDate(2016,11,23),"Nole","Chuck",'X',115);
+		HospitalPatient p7 = new HospitalPatient(new SimpleDate(2015,8,22),"Clarke","Zoe",'K',212);
+		HospitalPatient p8 = new HospitalPatient(new SimpleDate(2015,6,20),"Press","Barb",'K',227);
+		HospitalPatient p9 = new HospitalPatient(new SimpleDate(2014,5,19),"Mester","Luca",'S',101);
+		HospitalPatient p10 = new HospitalPatient(new SimpleDate(2015,7,17),"Minnow","Julie",'N',313);
 		
+		
+		// test add TreeNode to empty tree, and continue to build a binary search tree:
 		adm.admit(p1);
 		adm.admit(p4);
 		adm.admit(p3);
@@ -249,6 +283,10 @@ public class AdmittedPatients {
 		adm.admit(p6);
 		adm.admit(p5);
 		adm.admit(p7);
+		adm.admit(p8);
+		adm.admit(p9);
+		adm.admit(p10);
+
 		
 		// test TreeNode and subTree:
 		System.out.println(adm.root.toString() + "\n");
@@ -257,9 +295,9 @@ public class AdmittedPatients {
 		System.out.println("PrintLocations()/In-order binary search tree traversal: \n");
 		adm.printLocations();
 		
-		// test retrieve a non-existant patient:
+		// test retrieve patient Info:
 		System.out.println("\ngetPatientInfo()/binary search tree SEARCH: \n");
-
+		// test retrieve a non-existant patient:
 		System.out.print("Testing non-existant patient id - 'Goofy_2' : ");
 		System.out.println(adm.getPatientInfo("Goofy_2"));
 		// test retrieve divergent subTree:
@@ -275,13 +313,13 @@ public class AdmittedPatients {
 		
 		
 		// delete a leaf:
-		adm.discharge(p5);
+		//adm.discharge(p10);
+		
+		// delete a subTree node with one child:
+		//adm.discharge(p5);
 		
 		// delete a subTree node with two children:
 		//adm.discharge(p4);
-		
-		
-		
 		
 		
 		// View the BinarrySearchTree data structure through the ViewableTree class,
@@ -293,5 +331,4 @@ public class AdmittedPatients {
 	
 	
 	
-
 } //end class AdmittedPatients
