@@ -91,22 +91,36 @@ public class Heap<E extends Comparable<E>> {
 	// PRIVATE HELPER METHODS: for navigating indexes up/down the tree
 	
 	// int getParentIndex(): returns the parent index position of a child index argument.
-	private int getParentIndex(int childIndex) { return childIndex / 2; }
+	private int getParentIndex(int childIndex) { 
+		return childIndex / 2; 
+	}
 	
 	// int getLeftChildIndex(): returns the left child index position of a parent index argument.
-	private int getLeftChildIndex(int parentIndex) { return parentIndex * 2; }
+	private int getLeftChildIndex(int parentIndex) { 
+		return parentIndex * 2; 
+	}
 	
 	// int getRightChildIndex(): returns the right child index position of a parent index argument.
-	private int getRightChildIndex(int parentIndex) { return parentIndex*2 + 1; }
+	private int getRightChildIndex(int parentIndex) { 
+		return parentIndex*2 + 1; 
+	}
 	
 	
 	
-	// boolean hasParent()
-	private boolean hasParent(int childIndex) { return childIndex > 1; }
+	// boolean hasParent():
+	private boolean hasParent(int childIndex) { 
+		return childIndex > 1; 
+	}
 	
-	// boolean hasLeft
+	// boolean hasLeft():
+	private boolean hasLeftChild(int parentIndex) { 
+		return getLeftChildIndex(parentIndex) <= size;  
+	}
 	
-	
+	// boolean hasRight():
+	private boolean hasRightChild(int parentIndex) {
+		return getRightChildIndex(parentIndex) <= size;
+	}
 	
 	
 	// boolean isLessPriority():
@@ -115,7 +129,7 @@ public class Heap<E extends Comparable<E>> {
 	}
 	
 	
-	//swap:
+	//swap():
 	private void swap(int a, int b) {
 		E temp = heap.get(a);
 		heap.set(a, heap.get(b));
@@ -140,7 +154,34 @@ public class Heap<E extends Comparable<E>> {
 	
 	}
 	
-	private void bubbleUp() {}
+	private void bubbleDown() {
+		
+		int index = 1;
+		// keep bubbling down from root to sort heap nodes,
+		// while left children exist:
+		while ( hasLeftChild(index) ) {
+			
+			// establish which sub tree heap node has the smaller child
+			// and bubble down the path of the smaller child:
+			int minChildIndex = getLeftChildIndex(index);
+			if ( hasRightChild(index) && !isLessPriority( minChildIndex, getRightChildIndex(index)) ) {
+				minChildIndex = getRightChildIndex(index);
+			}
+			// if smaller child is greater priority than parent,
+			// then ordering is fine, and end bubble down.
+			// else, swap the heap nodes:
+			if ( !isLessPriority( minChildIndex, index) ) {
+				return;
+			} else {
+				swap(minChildIndex, index);
+			}
+			
+			index = minChildIndex;
+			
+			
+		} //end while bubble down loop
+		
+	} //end bubbleDown()
 	
 	
 	
@@ -200,6 +241,14 @@ public class Heap<E extends Comparable<E>> {
 		System.out.println("Insert  '3': " + test.toString());
 		test.insert(54);
 		System.out.println("Insert '54': " + test.toString());
+
+		System.out.println("Heap Size: " + test.size());
+		
+		
+		// Test remove root and rearrange heap via bubbleDown():
+		System.out.println();
+		System.out.println("Remove root '" + test.getRootItem() +
+							"': " + test.toString());
 
 		System.out.println("Heap Size: " + test.size());
 		
