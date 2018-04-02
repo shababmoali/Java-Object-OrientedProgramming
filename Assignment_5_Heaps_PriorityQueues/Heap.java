@@ -30,10 +30,62 @@ public class Heap<E extends Comparable<E>> {
 	
 	// Complete the rest below:
 	
-	// CLASS METHODS: 
+	
+	// PRIVATE HELPER METHODS: for navigating indexes up/down the tree
+	
+	// INDEX ACCESSOR INT METHODS:
+	// int getParentIndex(): returns the parent index position of a child index argument.
+	private int getParentIndex(int childIndex) { 
+		return childIndex / 2; 
+	}
+	
+	// int getLeftChildIndex(): returns the left child index position of a parent index argument.
+	private int getLeftChildIndex(int parentIndex) { 
+		return parentIndex * 2; 
+	}
+	
+	// int getRightChildIndex(): returns the right child index position of a parent index argument.
+	private int getRightChildIndex(int parentIndex) { 
+		return parentIndex*2 + 1; 
+	}
+	
+	// INDEX EXISTS BOOLEAN METHODS:
+	// boolean hasParent():
+	private boolean hasParent(int childIndex) { 
+		return childIndex > 1; 
+	}
+	
+	// boolean hasLeft():
+	private boolean hasLeftChild(int parentIndex) { 
+		return getLeftChildIndex(parentIndex) <= size;  
+	}
+	
+	// boolean hasRight():
+	private boolean hasRightChild(int parentIndex) {
+		return getRightChildIndex(parentIndex) <= size;
+	}
 	
 
+	//swap():
+	private void swap(int a, int b) {
+		E temp = heap.get(a);
+		heap.set(a, heap.get(b));
+		heap.set(b, temp);
+	}
 	
+
+	// boolean isLessPriority():
+	// compares a child item to parent item and returns true,
+	// if child is less priority than parent. 
+	private boolean isLessPriority(int childIndex, int parentIndex) {
+		return heap.get(childIndex).compareTo( heap.get(parentIndex) ) < 0;		
+	}
+	
+	// END PRIVATE HELPER METHODS: for navigating indexes up/down the tree //
+	
+	
+	
+	// CLASS METHODS: 
 	
 	
 	// public boolean isEmpty(): 
@@ -45,7 +97,7 @@ public class Heap<E extends Comparable<E>> {
 		}
 		return false;
 			
-	}
+	} //end boolean isEmpty()
 
 
 
@@ -53,7 +105,7 @@ public class Heap<E extends Comparable<E>> {
 	// Returns: The number of elements in the heap.
 	public int size() {
 		return size;
-	}
+	} //end int size()
 
 
 
@@ -85,59 +137,8 @@ public class Heap<E extends Comparable<E>> {
 		
 	}
 	
-	
 
-
-	// PRIVATE HELPER METHODS: for navigating indexes up/down the tree
 	
-	// int getParentIndex(): returns the parent index position of a child index argument.
-	private int getParentIndex(int childIndex) { 
-		return childIndex / 2; 
-	}
-	
-	// int getLeftChildIndex(): returns the left child index position of a parent index argument.
-	private int getLeftChildIndex(int parentIndex) { 
-		return parentIndex * 2; 
-	}
-	
-	// int getRightChildIndex(): returns the right child index position of a parent index argument.
-	private int getRightChildIndex(int parentIndex) { 
-		return parentIndex*2 + 1; 
-	}
-	
-	
-	
-	// boolean hasParent():
-	private boolean hasParent(int childIndex) { 
-		return childIndex > 1; 
-	}
-	
-	// boolean hasLeft():
-	private boolean hasLeftChild(int parentIndex) { 
-		return getLeftChildIndex(parentIndex) <= size;  
-	}
-	
-	// boolean hasRight():
-	private boolean hasRightChild(int parentIndex) {
-		return getRightChildIndex(parentIndex) <= size;
-	}
-	
-	
-	// boolean isLessPriority():
-	private boolean isLessPriority(int childIndex, int parentIndex) {
-		return heap.get(childIndex).compareTo( heap.get(parentIndex) ) < 0;		
-	}
-	
-	
-	//swap():
-	private void swap(int a, int b) {
-		E temp = heap.get(a);
-		heap.set(a, heap.get(b));
-		heap.set(b, temp);
-	}
-	
-	
-
 	// public E getRootItem():
 	// Removes the element that is currently at the root (or top) of the heap.
 	// Returns: The element.
@@ -153,6 +154,7 @@ public class Heap<E extends Comparable<E>> {
 		return item;
 	
 	}
+	
 	
 	private void bubbleDown() {
 		
@@ -185,19 +187,6 @@ public class Heap<E extends Comparable<E>> {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public String toString() {
 		
 		StringBuilder sb = new StringBuilder(); 
@@ -214,7 +203,6 @@ public class Heap<E extends Comparable<E>> {
 	
 	
 	
-	
 	// Used for internal testing only.
 	public static void main(String[] args) {
 		
@@ -227,12 +215,15 @@ public class Heap<E extends Comparable<E>> {
 			System.out.println(nse.getMessage());
 		}
 		
+		// Test isEmpty():
+		System.out.println("Heap Status Empty: " + test.isEmpty());
 		
-		
+		// Test insert and rearrange heap via bubbleUp():
 		test.insert(5);
 		test.insert(67);
 		test.insert(13);
 		System.out.println("Heap: " + test.toString());
+		System.out.println("Heap Status Empty: " + test.isEmpty());
 		test.insert(22);
 		System.out.println("Insert '22': " + test.toString());
 		test.insert(28);
@@ -241,7 +232,7 @@ public class Heap<E extends Comparable<E>> {
 		System.out.println("Insert  '3': " + test.toString());
 		test.insert(54);
 		System.out.println("Insert '54': " + test.toString());
-
+		// Test size():
 		System.out.println("Heap Size: " + test.size());
 		
 		
@@ -249,7 +240,6 @@ public class Heap<E extends Comparable<E>> {
 		System.out.println();
 		System.out.println("Remove root '" + test.getRootItem() +
 							"': " + test.toString());
-
 		System.out.println("Heap Size: " + test.size());
 		
 	}
