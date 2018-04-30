@@ -26,21 +26,21 @@ public class AdmittedPatients {
 	} else if ( rightTree != null ) {
 		this.root = new TreeNode(item, null, rightTree.root);
 	} else {
-		//
+		//utilizes a default TreeNode constructor that has no children:
 		this.root = new TreeNode(item);
 	}
 	numPatients = 1 + leftTree.numPatients + rightTree.numPatients;
   
   } //end AdmittedPatients()
   
-  
-  public AdmittedPatients(HospitalPatient item) {
+	/* The default TreeNode contructor essentially implements the following code:
+	public AdmittedPatients(HospitalPatient item) {
 	  
 	  root = new TreeNode(item);
 	  numPatients = 1;
 	  
-  } //end AdmittedPatients() - no children arguments
-  
+	} //end AdmittedPatients() - no children arguments
+	*/
   
   public AdmittedPatients() {
 	  
@@ -275,6 +275,8 @@ public class AdmittedPatients {
 		HospitalPatient p10 = new HospitalPatient(new SimpleDate(2015,7,17),"Minnow","Julie",'N',313);
 		
 		
+		
+		
 		// test add TreeNode to empty tree, and continue to build a binary search tree:
 		adm.admit(p1);
 		adm.admit(p4);
@@ -286,6 +288,8 @@ public class AdmittedPatients {
 		adm.admit(p8);
 		adm.admit(p9);
 		adm.admit(p10);
+		
+		System.out.println("\nNumber of Patients: " + adm.numPatients);
 
 		
 		// test TreeNode and subTree:
