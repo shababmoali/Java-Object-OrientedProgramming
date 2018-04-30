@@ -252,6 +252,7 @@ public class PostfixTokenizer implements Tokenizer {
 
 		String test1 = "3*(4+2)-4*(-6--3)";
 		String test2 = "x^y/(5*z)+10";
+		
 
 		// a bad expression, too many open parenthesis...
 		String test3 = "(3)+2*(6-10^3";
@@ -265,6 +266,8 @@ public class PostfixTokenizer implements Tokenizer {
 		// Debug expressions:
 		String test6 = "3+1-6";
 		String test7 = "3*(4+3)/3";
+		
+		String test8 = "(a+b)*c/d";
 
 		// Tokenize infix expressions:
 		OperatorTokenizer infix1 = new OperatorTokenizer(test1);
@@ -274,6 +277,7 @@ public class PostfixTokenizer implements Tokenizer {
 		OperatorTokenizer infix5 = new OperatorTokenizer(test5);
 		OperatorTokenizer infix6 = new OperatorTokenizer(test6);
 		OperatorTokenizer infix7 = new OperatorTokenizer(test7);
+		OperatorTokenizer infix8 = new OperatorTokenizer(test8);
 		
 		
 		// Check infix tokens:
@@ -285,6 +289,7 @@ public class PostfixTokenizer implements Tokenizer {
 		System.out.println(infix5);
 		System.out.println(infix6);
 		System.out.println(infix7);
+		System.out.println(infix8);
 		
 		
 		// Create Postfix token objects, using infix tokens as parameters
@@ -296,6 +301,9 @@ public class PostfixTokenizer implements Tokenizer {
 		
 		PostfixTokenizer p2 = new PostfixTokenizer(infix2);
 		System.out.println(p2);
+		
+		PostfixTokenizer p8 = new PostfixTokenizer(infix8);
+		System.out.println(p8);
 		
 		
 		// Debug expressions:
