@@ -33,14 +33,14 @@ public class AdmittedPatients {
   
   } //end AdmittedPatients()
   
-	/* The default TreeNode contructor essentially implements the following code:
-	public AdmittedPatients(HospitalPatient item) {
+	
+  public AdmittedPatients(HospitalPatient item) {
 	  
 	  root = new TreeNode(item);
 	  numPatients = 1;
 	  
-	} //end AdmittedPatients() - no children arguments
-	*/
+  } //end AdmittedPatients() - no children arguments
+
   
   public AdmittedPatients() {
 	  
