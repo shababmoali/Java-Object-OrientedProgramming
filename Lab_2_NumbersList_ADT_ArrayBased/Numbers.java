@@ -7,7 +7,6 @@
 	using an int[] array data structure:
 */
 
-import java.util.*;
 
 
 public class Numbers {
@@ -35,17 +34,13 @@ public class Numbers {
 	// add(int num) adds a new number to the collection array attribute
 	// in a Numbers object.
     public void add(int num) {
-		// case: collection array is not filled to capacity 
-		if (numItems < capacity) {
-			collectionArr[numItems] = num;
-			numItems++;	 
 		// case: collection array is filled to capacity -
 		//       double collection array length and add new integer
-		} else {
+		if (numItems >= capacity) {
 			collectarrayDoubleCapacity();
-			collectionArr[numItems] = num;
-			numItems++;	  
-	    }
+		}
+		collectionArr[numItems] = num;
+		numItems++;	 
 
 	} //end add(int num) method
 
@@ -56,21 +51,11 @@ public class Numbers {
 	private void collectarrayDoubleCapacity() {
 	
 		int[] temp = new int[capacity*2];
-			for (int i=0; i<capacity; i++) {
-				temp[i] = collectionArr[i];
-			}
-		
-		collectionArr = temp;
-		capacity = collectionArr.length; 
-	
-	/*	
-	Alternative Implementation using Java helper methods:
-		int[] temp = this.collectionArr.clone();
-		this.capacity *= 2;
-		this.collectionArr = new int[this.capacity];
-		this.collectionArr = Arrays.copyOf(temp, this.capacity);	
-	*/	
-	
+		for (int i=0; i<capacity; i++) {
+			temp[i] = collectionArr[i];
+		}
+		this.collectionArr = temp;
+		this.capacity = collectionArr.length; 
 		
 	} //end collectarrayDoubleCapacity() method 
 	
@@ -95,6 +80,7 @@ public class Numbers {
 		numItems--;
     
 	} //end remove(int num) method
+  
   
   
 	// private method replaceShiftLeft(int start) shifts the array contents one index left to replace the
@@ -161,5 +147,6 @@ public class Numbers {
     } //end method static void main(String[] args) unit test
 	
 	
-} //end Numbers
+	
+} //end class Numbers
 
